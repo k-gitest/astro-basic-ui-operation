@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { SolidButton } from "../components/Solid/SolidButton.tsx";
+import { Form } from "../components/Solid/SolidForm.tsx";
+import { SolidFetch } from "../components/Solid/SolidFetch.tsx";
+import SolidStoreToggle from "../components/Solid/SolidStoreToggle.tsx";
+---
+
+<Layout title="Welcome to Solid * Astro.">
+  <main>
+    <h1>Welcome to <span class="text-gradient">Solid * Astro</span></h1>
+
+    <SolidButton text="Solidhoge" client:load />
+    <Form client:load />
+    <SolidStoreToggle client:load />
+    <SolidFetch client:load />
+  </main>
+</Layout>

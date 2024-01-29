@@ -1,0 +1,62 @@
+---
+import Layout from "@layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import Button from "../components/Button.astro";
+import ReactButton from "../components/React/ReactButton.tsx";
+import VueButton from "../components/Vue/VueButton.vue";
+import SvelteButton from "../components/Svelte/SvelteButton.svelte";
+import AlpineButton from "../components/Alpine/AlpineButton.astro";
+import { SolidButton } from "../components/Solid/SolidButton.tsx";
+import HtmxButton from "../components/Htmx/HtmxButton.astro";
+import { Form } from "../components/Solid/SolidForm.tsx";
+import SvelteForm from "../components/Svelte/SvelteForm.svelte";
+import VueForm from "../components/Vue/VueForm.vue";
+import ReactForm from "../components/React/ReactForm.tsx";
+import AlpineForm from "../components/Alpine/AlpineForm.astro";
+import HtmxForm from "../components/Htmx/HtmxForm.astro";
+import AstroFetch from "../components/AstroFetch.astro";
+
+import { Image } from "astro:assets";
+import myImage from "../assets/water_00011.jpg";
+
+const data = Astro.locals;
+---
+
+<script>
+  function hoge() {
+    alert(data);
+  }
+
+  const button = document.querySelector("button");
+  button.addEventListener("click", hoge);
+</script>
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <h1>Welcome to <span class="text-gradient">Astro</span></h1>
+    <h3>ローカル画像</h3>
+    <div class="imgWrap mb-2">
+      <Image src={myImage} alt="トップイメージ" class="imgHero" />
+    </div>
+    <button
+      id="button"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      >ボタン</button
+    >
+    <Button text="hoge" />
+    <ReactButton text="Reacthoge" client:load />
+    <VueButton text="Vuehoge" client:load />
+    <SvelteButton text="Sveltehoge" client:load />
+    <AlpineButton text="Alpinehoge" />
+    <SolidButton text="Solidhoge" client:load />
+    <HtmxButton text="Htmxhoge" />
+
+    <Form client:load />
+    <SvelteForm client:load />
+    <VueForm client:load />
+    <ReactForm client:load />
+    <AlpineForm />
+    <HtmxForm />
+    <AstroFetch />
+  </main>
+</Layout>

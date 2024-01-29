@@ -1,0 +1,42 @@
+---
+import type { User } from "../types/users.ts";
+import type { Post } from "../types/posts.ts";
+import { getPosts, getUsers } from "../../lib/fetch.ts";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const data: Post[] = await getPosts();
+
+  const paths = data.map((post) => ({
+    params: {
+      userId: post.userId,
+      id: post.id,
+    },
+  }));
+
+  return paths;
+}
+
+const { userId, id } = Astro.params;
+
+const data: Post = await getPosts(id);
+
+const users: User[] = await getUsers();
+
+const user = users.find((user) => {
+  if (user.id == data.userId) return user.username;
+});
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <h1>Welcome to <span class="text-gradient">Astro</span></h1>
+    <h2 class="text-4xl font-extrabold dark:text-white">{data.title}</h2>
+    <p>
+      {data.body}
+    </p>
+    <div>
+      by : <a href="./">{user.username}</a>
+    </div>
+  </main>
+</Layout>

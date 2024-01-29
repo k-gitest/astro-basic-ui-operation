@@ -1,0 +1,48 @@
+---
+  import Layout from "@layouts/Layout.astro";
+
+  export interface Blog {
+    title: string;
+    tags: string[];
+    date: string;
+    slug: string;
+    body: string;
+  }
+
+  const allNews = await Astro.glob('./news/*.md');
+  console.log(allNews)
+
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <div>
+      {
+      allNews.map((news) => {
+      const {Content} = news
+      const headings = news.getHeadings();
+      return (
+      <div class="border">
+        <p>frontmatter.title: {news.frontmatter.title}</p>
+        <p>frontmatter.author: {news.frontmatter.author}</p>
+        <p>frontmatter.description: {news.frontmatter.description}</p>
+        <p>frontmatter.image: {news.frontmatter.image.url}</p>
+        <p>frontmatter.alt: {news.frontmatter.image.alt}</p>
+        <p>frontmatter.pubDate: {news.frontmatter.pubDate}</p>
+        <p>frontmatter.tags: {news.frontmatter.tags.map(item=><span class="mr-1">{item}</span>)}</p>
+      </div>
+      <p>file: {news.file}</p>
+      <p>url: {news.url}</p>
+      <p>rawContent: {news.rawContent}</p>
+      <p>compiledContent: {news.compiledContent}</p>
+      <p>getHeadings: {JSON.stringify(headings)}</p>
+      <p>Content:
+        <Content />
+      </p>
+      )
+
+      })
+      }
+    </div>
+  </main>
+</Layout>

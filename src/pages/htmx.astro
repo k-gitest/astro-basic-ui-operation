@@ -1,0 +1,82 @@
+---
+  import Layout from "../layouts/Layout.astro";
+  import HtmxButton from "../components/Htmx/HtmxButton.astro";
+  import HtmxForm from "../components/Htmx/HtmxForm.astro";
+---
+
+<Layout title="Welcome to Htmx * Astro.">
+  <main>
+    <h1>Welcome to <span class="text-gradient">Htmx * Astro</span></h1>
+
+    <HtmxButton text="Htmxhoge" />
+
+    <HtmxForm />
+
+    <ul id="dataContainer" role="list" class="link-card-grid"></ul>
+
+    <div hx-trigger="load" hx-get="https://jsonplaceholder.typicode.com/posts/" hx-swap="none">
+    </div>
+
+    <script>
+      document.body.addEventListener("htmx:afterRequest", function (event) {
+        const responseData = event.detail.xhr.response;
+        const dataContainer = document.getElementById("dataContainer");
+        if (responseData) {
+          const htmlData = processData(JSON.parse(responseData));
+          htmlData.map((i) => {
+            return dataContainer.insertAdjacentHTML("beforeend", i);
+          });
+        }
+      });
+
+      function processData(data) {
+        const htmlData = data.map((i) => {
+          const cardData = `
+          <li style="
+          list-style: none;
+          display: flex;
+          padding: 1px;
+          background-color: #23262d;
+          background-image: none;
+          background-size: 400%;
+          border-radius: 7px;
+          background-position: 100%;
+          transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+          box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+          "
+          >
+            <a href=${i.href} style="
+            width: 100%;
+            text-decoration: none;
+            line-height: 1.4;
+            padding: calc(1.5rem - 1px);
+            border-radius: 8px;
+            color: white;
+            background-color: #23262d;
+            opacity: 0.8;
+            ">
+              <h2 style="
+              margin: 0;
+              font-size: 1.25rem;
+              transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+              ">
+                ${i.title}
+                <span>&rarr;</span>
+              </h2>
+              <p style="
+              margin-top: 0.5rem;
+              margin-bottom: 0;
+              ">
+                ${i.body}
+              </p>
+            </a>
+          </li>
+        `;
+          return cardData;
+        });
+
+        return htmlData;
+      }
+    </script>
+  </main>
+</Layout>

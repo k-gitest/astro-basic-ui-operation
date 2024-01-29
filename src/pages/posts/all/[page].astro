@@ -1,0 +1,45 @@
+---
+  import { getPosts, getUsers } from "@lib/fetch.ts";
+  import type { User } from "../types/users.ts";
+  import type { Post } from "../types/posts.ts";
+  import Layout from "@layouts/Layout.astro";
+  import Card from "@components/Card.astro";
+
+  export async function getStaticPaths({ paginate }) {
+    const data: Post[] = await getPosts();
+    return paginate(data, { pageSize: 2 });
+  }
+  const { page } = Astro.props;
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <h1>{page.currentPage}ページ</h1>
+    <ul role="list" class="link-card-grid">
+      {
+      page.data.map((userPost) => (
+      <Card key={userPost.id} href={userPost.id} title={userPost.title} body={userPost.body} />
+      ))
+      }
+    </ul>
+    <ul>
+      <li>start(1ページにある配列の最初のindex番号): {page.start}</li>
+      <li>end(1ページにある配列の最後のindex番号): {page.end}</li>
+      <li>size(1ページにある配列内の要素数): {page.size}</li>
+      <li>total(配列の総合要素数): {page.total}</li>
+      <li>currentPage: {page.currentPage}</li>
+      <li>lastPage: {page.lastPage}</li>
+      <li>url.current: {page.url.current}</li>
+      <li>url.prev: {page.url.prev}</li>
+      <li>url.next: {page.url.next}</li>
+      {page.url.prev &&
+      (
+      <li><a href={page.url.prev}>前へ</a></li>
+      )}
+      {page.url.next &&
+      (
+      <li><a href={page.url.next}>次へ</a></li>
+      )}
+    </ul>
+  </main>
+</Layout>

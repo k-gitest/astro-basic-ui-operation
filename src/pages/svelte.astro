@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SvelteButton from "../components/Svelte/SvelteButton.svelte";
+import SvelteForm from "../components/Svelte/SvelteForm.svelte";
+import SvelteFetch from "../components/Svelte/SvelteFetch.svelte";
+import SvelteStoreToggle from "../components/Svelte/SvelteStoreToggle.svelte";
+---
+
+<Layout title="Welcome to Svelte * Astro.">
+  <main>
+    <h1>Welcome to <span class="text-gradient">Svelte * Astro</span></h1>
+
+    <SvelteButton text="Sveltehoge" client:load />
+
+    <SvelteForm client:load />
+
+    <SvelteStoreToggle client:load />
+
+    <SvelteFetch client:load />
+  </main>
+</Layout>

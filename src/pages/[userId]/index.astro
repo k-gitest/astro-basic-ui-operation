@@ -1,0 +1,45 @@
+---
+import {getPosts} from '@lib/fetch.ts'
+import type { Post } from "../types/posts.ts";
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/Card.astro";
+
+export async function getStaticPaths({ paginate }) {
+
+  const data: Post[] = await getPosts();
+
+  const paths = data.map((post) => ({
+    params: {
+      userId: post.userId,
+    },
+  }));
+
+  return paths;
+}
+
+const { userId } = Astro.params;
+
+const data: Post[] = await getPosts();
+const userPosts = data.filter((post) => {
+  return post.userId == userId;
+});
+
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <h1>Welcome to <span class="text-gradient">Astro</span></h1>
+    <ul role="list" class="link-card-grid">
+      {
+        userPosts.map((userPost) => (
+          <Card
+            key={userPost.id}
+            href={userPost.id}
+            title={userPost.title}
+            body={userPost.body}
+          />
+        ))
+      }
+    </ul>
+  </main>
+</Layout>

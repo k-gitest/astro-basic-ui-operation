@@ -1,0 +1,27 @@
+{
+  "extends": "astro/tsconfigs/base",
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["es2021", "dom"],
+    "module": "esnext",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@lib/*": ["/src/lib/*"],
+      "@types/*": ["/src/types/*"],
+      "@store/*": ["/src/store/*"],
+      "@content/*": ["/src/content/*"],
+    },
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
+}

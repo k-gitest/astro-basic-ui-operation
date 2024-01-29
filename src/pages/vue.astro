@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+import VueButton from "../components/Vue/VueButton.vue";
+import VueForm from "../components/Vue/VueForm.vue";
+import VueFetch from "../components/Vue/VueFetch.vue";
+import VueStoreToggle from "../components/Vue/VueStoreToggle.vue";
+---
+
+<Layout title="Welcome to Vue * Astro.">
+  <main>
+    <h1>Welcome to <span class="text-gradient">Vue * Astro</span></h1>
+
+    <VueButton text="Vuehoge" client:load />
+
+    <VueForm client:load />
+
+    <VueStoreToggle client:load />
+
+    <VueFetch client:load />
+  </main>
+</Layout>
+

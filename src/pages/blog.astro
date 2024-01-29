@@ -1,0 +1,47 @@
+---
+  import { getCollection, getEntry } from "astro:content";
+  import Layout from "@layouts/Layout.astro";
+
+  export interface Blog {
+    title: string;
+    tags: string[];
+    date: string;
+    slug: string;
+    body: string;
+  }
+
+  const blogs = await getCollection("blog");
+  const blogPost = await getEntry('blog', 'post-1');
+  const { Content, headings } = await blogPost.render()
+
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <Content />
+    <hr />
+    <div>
+      {
+      blogs.map((blog) => {
+      return (
+      <h2>{blog.data.title}</h2>
+      <p>id: {blog.id}</p>
+      <p>slug: {blog.slug}</p>
+      <p>body: {blog.body}</p>
+      <p>collection: {blog.collection}</p>
+      <div class="border">
+        <p>{blog.data.title}</p>
+        <p><time datetime={blog.data.pubDate.toISOString()}>{blog.data.pubDate.toLocaleDateString()}</time></p>
+        <p>{blog.data.description}</p>
+        <p>{blog.data.author}</p>
+        <p>{blog.data.image.url}</p>
+        <p>{blog.data.image.alt}</p>
+        <p>{blog.data.tags.map(item=><span class="mr-1">{item}</span>)}</p>
+      </div>
+      )
+
+      })
+      }
+    </div>
+  </main>
+</Layout>

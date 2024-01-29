@@ -1,0 +1,14 @@
+---
+import Layout from "@layouts/Layout.astro";
+const {frontmatter} = Astro.props
+//console.log(frontmatter)
+---
+<Layout>
+<main>
+<h1>{frontmatter.title}</h1>
+<p>
+{frontmatter.body}
+</p>
+<p>著者: {frontmatter.author}</p>
+</main>
+</Layout>

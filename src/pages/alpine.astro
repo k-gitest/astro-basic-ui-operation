@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AlpineButton from "../components/Alpine/AlpineButton.astro";
+import AlpineForm from "../components/Alpine/AlpineForm.astro";
+import AlpineFetch from "../components/Alpine/AlpineFetch.astro";
+---
+
+<Layout title="Welcome to Alpine * Astro.">
+  <main>
+    <h1>Welcome to <span class="text-gradient">Alpine * Astro</span></h1>
+
+    <AlpineButton text="Alpinehoge" />
+
+    <AlpineForm />
+
+    <AlpineFetch client:load />
+  </main>
+</Layout>

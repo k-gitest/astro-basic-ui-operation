@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ReactButton from "../components/React/ReactButton.tsx";
+import ReactForm from "../components/React/ReactForm.tsx";
+import ReactFetch from "../components/React/ReactFetch.tsx";
+import CartButton from "../components/React/ReactStoreToggle.tsx";
+---
+
+<Layout title="Welcome to React * Astro.">
+  <main>
+    <h1>Welcome to <span class="text-gradient">React * Astro</span></h1>
+
+    <ReactButton text="Reacthoge" client:load />
+
+    <ReactForm client:load />
+
+    <CartButton client:load />
+
+    <ReactFetch client:load />
+  </main>
+</Layout>
+
